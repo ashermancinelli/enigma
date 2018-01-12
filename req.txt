@@ -1,0 +1,5 @@
+numpy==1.13.1+mkl
+Pmw==2.0.1
+pymol==1.8.7.0
+pymol-launcher==1.0
+virtualenv==15.1.0
