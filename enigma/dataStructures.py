@@ -20,8 +20,13 @@ class enigma:
 
 class rotor:
 class plugBoard:
+
     plugBoardMapping = { char: char for char in letters }  
     
     __init__(self, plugBoardList):
         for pair in plugBoardList:
+            plugBoardMapping[pair[0]] = pair[1]
+            plugBoardMapping[pair[1]] = pair[0]
+    
+    
 
