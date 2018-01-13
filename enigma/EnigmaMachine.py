@@ -20,13 +20,21 @@ class EnigmaMachine:
         # rotor 5 in the middle, and rotor 2 leftmost in a real enigma machine. The 
         # letters 'a' and 't' would be mapped to each other in the plugboard, as well 
         # as 's' and 'v', etc etc.
-        for r in activeRotorIndeces:
-            self.rotors.append(Rotor(r))
+        r1 = Rotor(activeRotorIndeces[0])
+        r2 = Rotor(activeRotorIndeces[1])
+        r3 = Rotor(activeRotorIndeces[2])
+        self.rotors = [r1, r2, r3]
+        if len(activeRotorIndeces) > 3:
+            r4 = Rotor(activeRotorIndeces[3])
+            self.rotors.append(r4)
+        if len(activeRotorIndeces) > 4:
+            r5 = Rotor(activeRotorIndeces[4])
+            self.rotors.append(r5)
 
         # this is a special case of the Rotor class, where the reflector is 
         # defined. This acts essentially like a normal rotor would, but has its own 
         # dictionary defined. 
-        reflector = Rotor(-1)
+        self.reflector = Rotor(-1)
 
         
 
@@ -40,7 +48,7 @@ class EnigmaMachine:
         
         l = self.reflector.evaluate(l)
         
-        i = len(rotors)
+        i = len(self.rotors) - 1
         
         while i >= 0:
             l = self.rotors[i].evaluate(l)

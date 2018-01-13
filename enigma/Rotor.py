@@ -64,17 +64,23 @@ class Rotor:
 
 
     def rotate(self):
-        dictList = []
-        newDictList = []
+        dictList = [  ]
+        newDictList = [ [char, char] for char in self.letters ]
 
         # dictionaries are not iterable with an index, so we convert the dictionary 
         # to a list first, copy over the adjusted list, and then fill the dict with the 
         # appropriate offset values.
-        for k, v in self._rotorDict:
-            dictList.append([k, v])
         
-        for index in len(dictList):
-            newDictList[index][1] = dictList[(index+1)%26][1]
+        for k in self._rotorDict:
+            dictList.append([k, self._rotorDict[k]])
+        
+        print((dictList))
+        for index in range(len(dictList)):
+            try:
+                newDictList[index%26][1] = dictList[(index+1)%26][1]
+            except IndexError as e:
+                print(e, ': ', index)
+                pass
 
         self._rotorDict = { pair[0]: pair[1] for pair in newDictList }
 
