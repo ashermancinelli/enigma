@@ -61,11 +61,14 @@ for pair in _reflectorShuffleKeys:
 ##################################################################################
 
 
+
 class EnigmaMachine:
 
     rotors = []
 
-    __init__(self, activeRotorIndeces, plugBoardPairs):
+    def __init__(self, activeRotorIndeces, plugBoardPairs):
+
+        self.pb = PlugBoard(plugBoardPairs)
 
         # rotor index indicates which rotor will be in the enigma machine 
         # from right to left, as that is the order the signal would travel through
@@ -84,24 +87,25 @@ class EnigmaMachine:
         # dictionary defined. 
         reflector = Rotor(-1)
 
-        pb = PlugBoard()
-
-    def evaluate(char):
-
-        l = pb.evaluate(char)
         
-        for r in rotors:
+
+
+    def evaluate(self, char):
+
+        l = self.pb.evaluate(char)
+        
+        for r in self.rotors:
             l = r.evaluate(l)
         
-        l = reflector.evaluate(l)
+        l = self.reflector.evaluate(l)
         
-        numRotors = len(rotors)
-        
-        i = numRotors
+        i = len(rotors)
         
         while i >= 0:
-            l = rotors[i].evaluate(l)
+            l = self.rotors[i].evaluate(l)
             i -= 1
+
+        return self.pb.evaluate(l)
         
         
 
@@ -109,18 +113,20 @@ class Rotor:
 
     _rotorIndex = 0
     _rotorDict = {}
+    _type = 'rotor'
 
-
-    __init__(self, rotorIndex):
+    def __init__(self, rotorIndex):
         if rotorIndex < 1 or rotorIndex > 8: 
             if rotorIndex == -1:
                 _rotorDict = _reflectorDict
+                _type = 'reflector'
             else:   raise IndexError
+        else:
+            self._rotorIndex = rotorIndex
+            self._rotorDict = _rotorDicts[rotorIndex]
 
-        self._rotorIndex = rotorIndex
-        self._rotorDict = _rotorDicts[rotorIndex]
 
-    def rotate():
+    def rotate(self):
         dictList = []
         newDictList = []
 
@@ -131,29 +137,40 @@ class Rotor:
             dictList.append([k, v])
         
         for index in len(dictList):
-            newDictList[index] = dictList[(index+1)%26]
+            newDictList[index][1] = dictList[(index+1)%26][1]
 
-        _rotorDict = {  }
+        _rotorDict = { pair[0]: pair[1] for pair in newDictList }
 
 
-    def evaluate(char):
+    def evaluate(self, char):
+        if self._type == 'rotor':
+            rotate()
         return _rotorDict[char]
-        rotate()
+
+
 
 class PlugBoard:
-
-    letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.lower()
-
-    # the plug board is originally set up as a mapping from each letter to itself.
-    plugBoardMapping = { char.lower(): char.lower() for char in PlugBoard.letters }  
     
-    __init__(self, plugBoardPairs):
+    def __init__(self, plugBoardPairs):
+        
+        # the plug board is originally set up as a mapping from each letter to itself.
+        self.plugBoardMapping = { char.lower(): char.lower() for char in letters }  
+        
         for pair in plugBoardPairs:
-            plugBoardMapping[pair[0]] = pair[1]
-            plugBoardMapping[pair[1]] = pair[0]
+            self.plugBoardMapping[pair[0]] = pair[1]
+            self.plugBoardMapping[pair[1]] = pair[0]
 
-    def evaluate(char):
-        return plugBoardMapping[char.lower()]
+    def evaluate(self, char):
+        return self.plugBoardMapping[char.lower()]
     
     
 
+if __name__ == '__main__':
+    em = EnigmaMachine([1,2,3],[['t', 's'], ['z', 'a'], ['e', 'n']])
+    plaintext = 'asher'
+    ciphertext = ''
+    # for ch in pt:
+    #     ct += em.evaluate(ch)
+    
+    # print(ct)
+    ct = em.evaluate('a')
