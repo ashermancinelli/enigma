@@ -1,16 +1,16 @@
 
 
-
+from collections import OrderedDict
 
 class Rotor:
 
     letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.lower()
 
     _rotorDicts = [
-        { char.lower(): char.lower() for char in letters },
-        { char.lower(): char.lower() for char in letters },
-        { char.lower(): char.lower() for char in letters },
-        { char.lower(): char.lower() for char in letters }
+        OrderedDict({ char.lower(): char.lower() for char in letters }),
+        OrderedDict({ char.lower(): char.lower() for char in letters }),
+        OrderedDict({ char.lower(): char.lower() for char in letters }),
+        OrderedDict({ char.lower(): char.lower() for char in letters })
     ]
 
     _shuffleKeys = [
@@ -37,7 +37,7 @@ class Rotor:
     # of the rotor class since they operate almost the same
 
     ##################################################################################
-    _reflectorDict = { char.lower(): char.lower() for char in letters }
+    _reflectorDict = OrderedDict({ char.lower(): char.lower() for char in letters })
     _reflectorShuffleKeys = [['m', 'q'],['v','u'],['r','i'],['d','b'],['x','p'],['y','l'],
                             ['z','f'],['j','t'],['h','e'],['o','a'],['w','s'],['n','c'],['k','g']]
 
@@ -49,7 +49,7 @@ class Rotor:
 
 
     _rotorIndex = 0
-    _rotorDict = {}
+    _rotorDict = OrderedDict({})
     _type = 'rotor'
 
     def __init__(self, rotorIndex):
@@ -74,7 +74,7 @@ class Rotor:
         for k in self._rotorDict:
             dictList.append([k, self._rotorDict[k]])
         
-        print((dictList))
+        print((self._rotorDict,dictList))
         for index in range(len(dictList)):
             try:
                 newDictList[index%26][1] = dictList[(index+1)%26][1]
@@ -82,7 +82,7 @@ class Rotor:
                 print(e, ': ', index)
                 pass
 
-        self._rotorDict = { pair[0]: pair[1] for pair in newDictList }
+        self._rotorDict = OrderedDict({ pair[0]: pair[1] for pair in newDictList })
 
 
     def evaluate(self, char):
