@@ -11,31 +11,27 @@
 
 # These are the default dictionaries for each rotor, and can be modified 
 # by shuffling or adding new letters into the subsequent loops.
+letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.lower()
+
 _rotorDicts = [
-    { char.lower(): char.lower() for char in PlugBoard.letters },
-    { char.lower(): char.lower() for char in PlugBoard.letters },
-    { char.lower(): char.lower() for char in PlugBoard.letters },
-    { char.lower(): char.lower() for char in PlugBoard.letters },
-    { char.lower(): char.lower() for char in PlugBoard.letters },
-    { char.lower(): char.lower() for char in PlugBoard.letters },
-    { char.lower(): char.lower() for char in PlugBoard.letters },
-    { char.lower(): char.lower() for char in PlugBoard.letters },
+    { char.lower(): char.lower() for char in letters },
+    { char.lower(): char.lower() for char in letters },
+    { char.lower(): char.lower() for char in letters },
+    { char.lower(): char.lower() for char in letters }
 ]
 
 _shuffleKeys = [
-    [[],[],[],[],[],[],[],[],[]],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
+    [['j','p'],['y','l'],['f','v'],['n','u'],['k','g'],['w','h'],['o','d'],['e','c'],['b','q'],['t','z'],['i','a'],['r','m'],['x','s']],
+    [['o','q'],['y','m'],['a','g'],['i','j'],['s','r'],['v','k'],['z','u'],['b','t'],['c','e'],['w','h'],['n','l'],['f','p'],['d','x']],
+    [['q','x'],['z','t'],['y','o'],['s','r'],['i','d'],['h','w'],['f','m'],['c','k'],['v','g'],['b','e'],['u','j'],['l','p'],['n','a']],
+    [['q','h'],['l','t'],['v','n'],['p','b'],['k','a'],['d','z'],['r','m'],['f','y'],['e','w'],['u','o'],['i','x'],['g','j'],['s','c']]
 ]
 
-for rdIndex in len(_rotorDicts):
-    rd[_shuffleKeys[rdIndex][0]]] = _shuffleKeys[rdIndex][1]
-    rd[_shuffleKeys[rdIndex][1]]] = _shuffleKeys[rdIndex][0]
+for index in range(4):
+    for pair in _shuffleKeys[index]:
+        _rotorDicts[index][pair[0]] = pair[1]
+        _rotorDicts[index][pair[1]] = pair[0]
+
 
 
 class EnigmaMachine:
