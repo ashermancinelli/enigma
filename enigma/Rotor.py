@@ -1,6 +1,7 @@
 
 
 from collections import OrderedDict
+from random import randint
 
 class Rotor:
 
@@ -52,6 +53,9 @@ class Rotor:
     _rotorDict = OrderedDict({})
     _type = 'rotor'
 
+    def __new__(self):
+        rotationHandler.keyPresses = 0
+
     def __init__(self, rotorIndex):
         if rotorIndex < 1 or rotorIndex > 8: 
             if rotorIndex == -1:
@@ -61,9 +65,11 @@ class Rotor:
         else:
             self._rotorIndex = rotorIndex
             self._rotorDict = self._rotorDicts[rotorIndex]
+        Rotor.rotationHandler
+        
 
 
-    def rotate(self):
+    def rotate(self, reverse=False):
         dictList = [  ]
         newDictList = [ [char, char] for char in self.letters ]
 
@@ -85,8 +91,9 @@ class Rotor:
         self._rotorDict = OrderedDict({ pair[0]: pair[1] for pair in newDictList })
 
 
+
     def evaluate(self, char):
         if self._type == 'rotor':
-            self.rotate()
+            Rotor.rotationHandler()
         return self._rotorDict[char]
 

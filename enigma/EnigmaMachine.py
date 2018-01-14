@@ -2,6 +2,7 @@
 from PlugBoard import *
 # from Rotor import *
 from RotorByList import *
+from debuggingHelpers import *
 
 class EnigmaMachine:
 
@@ -12,6 +13,9 @@ class EnigmaMachine:
     def __init__(self, activeRotorIndeces, plugBoardPairs, rotorStartingPositions):
 
         self.pb = PlugBoard(plugBoardPairs)
+
+        if len(activeRotorIndeces) is not len(rotorStartingPositions):
+            raise RotorMismatchError
 
         # rotor index indicates which rotor will be in the enigma machine 
         # from right to left, as that is the order the signal would travel through
@@ -36,6 +40,7 @@ class EnigmaMachine:
         self.reflector = Rotor(-1)
 
         for index in range(len(self._rotors)):
+            print(index)
             for rotation in range(self.letters.index(rotorStartingPositions[index])):
                 self._rotors[index].rotate()
 
@@ -50,12 +55,14 @@ class EnigmaMachine:
         for index in range(len(self._rotors) - 1):
             while ( self._rotationsByRotor[index] // 26 ) > self._rotationsByRotor[ index + 1 ]:
                 self._rotors[ index + 1 ].rotate()
+                self._rotationsByRotor[ index + 1 ] += 1
 
 
 
     def evaluate(self, char):
 
-        l = self.pb.evaluate(char)
+        # l = self.pb.evaluate(char)
+        l = char
 
         self.rotationHandler()
         
@@ -70,6 +77,7 @@ class EnigmaMachine:
             l = self._rotors[i].evaluate(l, reverse=True)
             i -= 1
 
-        return self.pb.evaluate(l)
+        # return self.pb.evaluate(l)
+        return l
         
         

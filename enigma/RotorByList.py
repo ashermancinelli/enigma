@@ -34,10 +34,6 @@ class Rotor:
             self._rotorOffsetList = self._possibleOffsets[rotorIndex]
 
 
-    def letterGen():
-        for ch in self.letters:
-            yield ch
-
     def rotate(self):
         firstElement = self._rotorOffsetList[0]
         del self._rotorOffsetList[0]
