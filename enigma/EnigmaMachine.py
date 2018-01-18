@@ -1,4 +1,3 @@
-
 from PlugBoard import *
 # from Rotor import *
 from RotorByList import *
@@ -40,7 +39,6 @@ class EnigmaMachine:
         self.reflector = Rotor(-1)
 
         for index in range(len(self._rotors)):
-            print(index)
             for rotation in range(self.letters.index(rotorStartingPositions[index])):
                 self._rotors[index].rotate()
 
@@ -61,8 +59,7 @@ class EnigmaMachine:
 
     def evaluate(self, char):
 
-        # l = self.pb.evaluate(char)
-        l = char
+        l = self.pb.evaluate(char)
 
         self.rotationHandler()
         
@@ -77,7 +74,5 @@ class EnigmaMachine:
             l = self._rotors[i].evaluate(l, reverse=True)
             i -= 1
 
-        # return self.pb.evaluate(l)
-        return l
-        
+        return self.pb.evaluate(l)
         

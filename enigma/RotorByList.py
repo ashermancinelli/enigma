@@ -17,8 +17,8 @@ class Rotor:
         [2, 21, 1, 9, 5, 13, 8, 15, 22, 23, 19, 18, 3, 24, 12, 17, 10, 0, 6, 11, 25, 4, 16, 14, 20, 7],
     ]
 
-    _reflectorOffsetList = [7, 22, 21, 12, 23, 2, 24, 13, 0, 4, 11, 9, 19, 10, 15, 14, 18, 16, 20, 8, 25, 5, 1, 6, 3, 17]
-
+    _reflectorOffsetList = [4,9,12,25,0,11,24,23,21,1,22,5,2,17,16,20,14,13,19,18,15,8,10,7,6,3]
+	
     _rotations = 0
     _rotorOffsetList = []
     _type = 'rotor'
@@ -41,7 +41,7 @@ class Rotor:
 
 
     def evaluate(self, char, reverse=False):
-
+		
         char = char.lower()
 
         if reverse:
