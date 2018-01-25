@@ -31,7 +31,7 @@ class Rotor:
                 self._type = 'reflector'
             else:   raise IndexError
         else:
-            self._rotorOffsetList = self._possibleOffsets[rotorIndex]
+            self._rotorOffsetList = self._possibleOffsets[rotorIndex - 1]
 
 
     def rotate(self):
