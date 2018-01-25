@@ -59,22 +59,29 @@ class EnigmaMachine:
 
     def evaluate(self, char):
        
+        print(char)
         l = self.pb.evaluate(char)
+        print(l)
         
         for r in self._rotors:
             l = r.evaluate(l)
+            print(l)
         
         l = self.reflector.evaluate(l)
+        print(l)
      
         i = len(self._rotors) - 1
+        print(l)
         
         while i >= 0:
             l = self._rotors[i].evaluate(l, reverse=True)
+            print(l)
             i -= 1
 
         self.rotationHandler()
 
         l = self.pb.evaluate(l)
+        print(l)
 
         return l 
         
