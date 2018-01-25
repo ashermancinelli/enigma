@@ -2,7 +2,7 @@ from EnigmaMachine import *
 
 if __name__ == '__main__':
 
-    em = EnigmaMachine([ 1, 2, 6 ],[['t', 's'], ['z', 'a'], ['e', 'n'], ['b', 'l'], ['f', 'o']], ['s','n', 'k'])
+    em = EnigmaMachine([ 1, 2, 6 ],[['t', 's'], ['z', 'a'], ['e', 'n'], ['b', 'l'], ['f', 'o']], ['s', 'n', 'k'])
     print("This enigma machine is configured with rotors I, II, and VI, a configured plugboard, and the rotors initially set to s, n, and k. Happy encrypting, sailor!") 
     
 	
