@@ -4,8 +4,6 @@ if __name__ == '__main__':
 
     em = EnigmaMachine([1,2],[['t', 's'], ['z', 'a'], ['e', 'n']], ['s','n'])
     
-	
-	
     while True:
 
         raw_pt = input("enter the plaintext to be encrypted\n>>>").lower()
